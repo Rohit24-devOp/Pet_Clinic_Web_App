@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/axios';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, 
   PawPrint, 
@@ -9,9 +9,14 @@ import {
   ChevronRight,
   Info,
   CalendarDays,
-  Clock
+  Clock,
+  X,
+  Download,
+  FileText
 } from 'lucide-react';
 import { format } from 'date-fns';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const StatCard = ({ icon: Icon, label, value, trend, color }) => (
   <div className="card p-6 flex items-center justify-between group hover:border-orange-200 transition-all cursor-default">
@@ -37,6 +42,8 @@ function Dashboard() {
   const [reminders, setReminders] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showReport, setShowReport] = useState(false);
+  const [fullData, setFullData] = useState({ owners: [], pets: [], appointments: [] });
 
   const loadData = async () => {
     try {
@@ -60,6 +67,11 @@ function Dashboard() {
         .sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime))
         .slice(0, 3)
       );
+      setFullData({
+        owners: ownersRes.data,
+        pets: petsRes.data,
+        appointments: apptsRes.data
+      });
     } catch (err) {
       console.error(err);
     } finally {
@@ -78,6 +90,59 @@ function Dashboard() {
     } catch (err) {
       alert(err.message || 'Failed to feed pet');
     }
+  };
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.text("Pet Clinic Report", 14, 15);
+    
+    doc.autoTable({
+      startY: 25,
+      head: [['Metric', 'Count']],
+      body: [
+        ['Total Pets', fullData.pets.length],
+        ['Registered Owners', fullData.owners.length],
+        ['Total Appointments', fullData.appointments.length],
+        ['Active Appointments', stats.appointments]
+      ],
+    });
+
+    doc.autoTable({
+      startY: doc.lastAutoTable.finalY + 15,
+      head: [['Pet Name', 'Species', 'Breed', 'Age', 'Owner']],
+      body: fullData.pets.map(p => [
+        p.name, 
+        p.species, 
+        p.breed, 
+        p.age, 
+        p.owner ? p.owner.name : 'N/A'
+      ]),
+    });
+
+    doc.save("clinic-report.pdf");
+  };
+
+  const generateCSV = () => {
+    const headers = ['Pet Name', 'Species', 'Breed', 'Age', 'Owner Name'];
+    const rows = fullData.pets.map(p => [
+      p.name,
+      p.species,
+      p.breed,
+      p.age,
+      p.owner ? p.owner.name : 'N/A'
+    ]);
+    
+    const csvContent = "data:text/csv;charset=utf-8," 
+      + headers.join(",") + "\n"
+      + rows.map(e => e.join(",")).join("\n");
+      
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "clinic-report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (loading) {
@@ -117,7 +182,10 @@ function Dashboard() {
               <Link to="/appointments" className="btn-primary px-8 py-3.5 shadow-orange-500/30">
                 View Schedule
               </Link>
-              <button className="bg-white/80 hover:bg-white text-slate-700 font-bold py-3.5 px-8 rounded-2xl transition-all shadow-sm">
+              <button 
+                onClick={() => setShowReport(true)}
+                className="bg-white/80 hover:bg-white text-slate-700 font-bold py-3.5 px-8 rounded-2xl transition-all shadow-sm"
+              >
                 Generate Report
               </button>
             </div>
@@ -258,6 +326,86 @@ function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Report Modal */}
+      <AnimatePresence>
+        {showReport && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+              onClick={() => setShowReport(false)}
+            />
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-2xl bg-white rounded-[32px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+            >
+              <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-900">Clinic Status Report</h2>
+                  <p className="text-sm text-slate-500 font-medium mt-1">Generated on {format(new Date(), 'MMMM d, yyyy')}</p>
+                </div>
+                <button 
+                  onClick={() => setShowReport(false)}
+                  className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:border-slate-300 transition-all"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="p-8 overflow-y-auto">
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="p-5 rounded-2xl bg-orange-50 border border-orange-100">
+                    <p className="text-sm font-bold text-orange-600 mb-1">Total Pets</p>
+                    <h3 className="text-3xl font-bold text-slate-900">{fullData.pets.length}</h3>
+                  </div>
+                  <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-100">
+                    <p className="text-sm font-bold text-emerald-600 mb-1">Registered Owners</p>
+                    <h3 className="text-3xl font-bold text-slate-900">{fullData.owners.length}</h3>
+                  </div>
+                  <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100">
+                    <p className="text-sm font-bold text-blue-600 mb-1">Total Appointments</p>
+                    <h3 className="text-3xl font-bold text-slate-900">{fullData.appointments.length}</h3>
+                  </div>
+                  <div className="p-5 rounded-2xl bg-purple-50 border border-purple-100">
+                    <p className="text-sm font-bold text-purple-600 mb-1">Active Appointments</p>
+                    <h3 className="text-3xl font-bold text-slate-900">{stats.appointments}</h3>
+                  </div>
+                </div>
+                
+                <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
+                  <h4 className="font-bold text-slate-900 mb-2">Report Details</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    This report includes a comprehensive breakdown of all registered pets, their species, breeds, ages, and associated owner information. Exporting the data will provide a complete dataset for offline viewing and record keeping.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 border-t border-slate-100 bg-slate-50/50 flex items-center justify-end gap-4 mt-auto">
+                <button 
+                  onClick={generateCSV}
+                  className="flex items-center gap-2 bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-3 px-6 rounded-xl transition-all shadow-sm"
+                >
+                  <FileText size={18} />
+                  Export to CSV
+                </button>
+                <button 
+                  onClick={generatePDF}
+                  className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md shadow-orange-600/20"
+                >
+                  <Download size={18} />
+                  Download as PDF
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

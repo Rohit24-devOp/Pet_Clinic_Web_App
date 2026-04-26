@@ -149,16 +149,16 @@ function FeedingSchedule() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="glass-card w-full max-w-md p-8 z-10 relative bg-[#1a1a2e]"
+              className="glass-card w-full max-w-md p-8 z-10 relative bg-white"
             >
               <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-heading font-bold text-white flex items-center gap-3">
+                <h2 className="text-2xl font-heading font-bold text-slate-900 flex items-center gap-3">
                   <div className="p-2 bg-orange-500/20 rounded-lg text-orange-400">
                     <Utensils className="w-6 h-6" />
                   </div>
                   Add New Schedule
                 </h2>
-                <button onClick={() => setShowModal(false)} className="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors">
+                <button onClick={() => setShowModal(false)} className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
