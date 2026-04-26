@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #f8fafc;
+  --color-sidebar: #ffffff;
+  --color-surface: #ffffff;
+  --color-primary: #f97316;
+  --color-primary-light: #ffedd5;
+  --color-secondary: #0ea5e9;
+  --color-accent: #6366f1;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  * {
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white border border-slate-200 rounded-3xl;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  }
+  
+  .glass {
+    @apply bg-white/40 backdrop-blur-xl border border-white/20;
+  }
+
+  .btn-primary {
+    @apply bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2.5 px-6 rounded-2xl shadow-lg shadow-orange-500/20 active:scale-95 transition-all flex items-center justify-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-6 rounded-2xl border border-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2;
+  }
+
+  .input-field {
+    @apply bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-2xl focus:ring-2 focus:ring-orange-500 focus:border-transparent block w-full p-3.5 transition-all outline-none;
+  }
+
+  .label-text {
+    @apply block mb-2 text-sm font-semibold text-slate-600;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-200 font-medium;
+  }
+
+  .nav-link-active {
+    @apply bg-orange-50 text-orange-600;
+  }
+
+  .nav-link-inactive {
+    @apply text-slate-500 hover:bg-slate-50 hover:text-slate-900;
+  }
+}
+
+/* Custom Utilities */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
