@@ -87,21 +87,21 @@ function Vaccinations() {
               key={pet.id} 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="glass-card p-10 bg-white/[0.02]"
+              className="card p-10"
             >
-              <div className="flex items-center justify-between mb-10 border-b border-white/5 pb-6">
+              <div className="flex items-center justify-between mb-10 border-b border-slate-100 pb-6">
                 <div className="flex items-center gap-5">
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-500/20 to-teal-500/5 flex items-center justify-center text-teal-400 font-heading font-bold text-xl border border-teal-500/20 shadow-lg shadow-teal-500/10">
                     {pet.name.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="text-2xl font-heading font-bold text-white">{pet.name}</h3>
+                    <h3 className="text-2xl font-heading font-bold text-slate-800">{pet.name}</h3>
                     <p className="text-xs font-bold text-[var(--color-text-muted)] tracking-widest uppercase">Patient ID: PET-00{pet.id}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
-                  <Activity className="w-4 h-4 text-emerald-400" />
-                  <span className="text-xs font-bold text-white uppercase tracking-tighter">Active Profile</span>
+                <div className="flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100">
+                  <Activity className="w-4 h-4 text-emerald-500" />
+                  <span className="text-xs font-bold text-emerald-700 uppercase tracking-tighter">Active Profile</span>
                 </div>
               </div>
               
@@ -110,7 +110,7 @@ function Vaccinations() {
                   <motion.div 
                     key={rec.id} 
                     whileHover={{ scale: 1.02 }}
-                    className="bg-white/[0.03] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.05] hover:border-white/10 transition-all group"
+                    className="bg-slate-50 border border-slate-100 rounded-2xl p-6 hover:bg-slate-100 hover:border-slate-200 transition-all group"
                   >
                     <div className="flex justify-between items-center mb-5">
                       <span className={`text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-md ${
@@ -127,13 +127,13 @@ function Vaccinations() {
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
                         <FileText className="w-4 h-4 text-[var(--color-text-muted)] mt-1 shrink-0" />
-                        <p className="text-slate-300 text-sm leading-relaxed">{rec.notes}</p>
+                        <p className="text-slate-600 text-sm leading-relaxed">{rec.notes}</p>
                       </div>
                       
                       {rec.nextDueDate && (
-                        <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                        <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
                           <span className="text-[10px] uppercase font-bold text-[var(--color-text-muted)] tracking-tight">Next Scheduled Due</span>
-                          <span className="text-xs font-bold text-amber-400">{format(new Date(rec.nextDueDate), 'MMM d, yyyy')}</span>
+                          <span className="text-xs font-bold text-orange-600">{format(new Date(rec.nextDueDate), 'MMM d, yyyy')}</span>
                         </div>
                       )}
                     </div>
@@ -144,13 +144,13 @@ function Vaccinations() {
           ))}
           
           {Object.keys(records).length === 0 && (
-             <div className="text-center py-24 bg-white/5 rounded-3xl border-2 border-dashed border-white/10">
+             <div className="text-center py-24 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
                <img 
                  src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=500&q=80" 
                  alt="No records" 
                  className="w-40 h-40 object-cover rounded-full mx-auto mb-6 opacity-40 grayscale"
                />
-               <h3 className="text-xl font-heading font-bold text-white mb-2">No Medical History</h3>
+               <h3 className="text-xl font-heading font-bold text-slate-800 mb-2">No Medical History</h3>
                <p className="text-[var(--color-text-muted)]">Register health records for your pets to see them here.</p>
              </div>
           )}
@@ -172,11 +172,11 @@ function Vaccinations() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="glass-card w-full max-w-md p-8 z-10 relative bg-[#1a1a2e]"
+              className="card w-full max-w-md p-8 z-10 relative"
             >
               <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-heading font-bold text-white flex items-center gap-3">
-                  <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400">
+                <h2 className="text-2xl font-heading font-bold text-slate-800 flex items-center gap-3">
+                  <div className="p-2 bg-purple-100 rounded-lg text-purple-600">
                     <Syringe className="w-6 h-6" />
                   </div>
                   Add New Record

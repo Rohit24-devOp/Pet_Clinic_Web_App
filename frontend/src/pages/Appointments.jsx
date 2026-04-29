@@ -73,11 +73,11 @@ function Appointments() {
           />
         </div>
       ) : (
-        <div className="glass-card shadow-2xl backdrop-blur-md">
+        <div className="card shadow-2xl backdrop-blur-md">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-[var(--color-text-muted)]">
               <thead>
-                <tr className="bg-white/5 text-[10px] uppercase tracking-widest text-white/50 border-b border-white/5">
+                <tr className="bg-slate-50 text-[10px] uppercase tracking-widest text-slate-500 border-b border-slate-200">
                   <th className="px-8 py-5 font-bold">Date & Time</th>
                   <th className="px-8 py-5 font-bold">Pet Identity</th>
                   <th className="px-8 py-5 font-bold">Veterinarian</th>
@@ -85,30 +85,30 @@ function Appointments() {
                   <th className="px-8 py-5 font-bold">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y divide-slate-100">
                 {appointments.map(appt => (
-                  <tr key={appt.id} className="hover:bg-white/[0.03] transition-colors group">
+                  <tr key={appt.id} className="hover:bg-slate-50 transition-colors group">
                     <td className="px-8 py-6 whitespace-nowrap">
                       <div className="flex items-center gap-3">
-                        <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400">
+                        <div className="p-2 bg-purple-100 rounded-lg text-purple-600">
                           <CalendarIcon className="w-4 h-4" />
                         </div>
                         <div>
-                          <span className="block font-heading font-bold text-white">{format(new Date(appt.dateTime), 'MMM d, yyyy')}</span>
-                          <span className="text-xs text-[var(--color-text-muted)] group-hover:text-slate-300 transition-colors">{format(new Date(appt.dateTime), 'h:mm a')}</span>
+                          <span className="block font-heading font-bold text-slate-800">{format(new Date(appt.dateTime), 'MMM d, yyyy')}</span>
+                          <span className="text-xs text-[var(--color-text-muted)] group-hover:text-slate-500 transition-colors">{format(new Date(appt.dateTime), 'h:mm a')}</span>
                         </div>
                       </div>
                     </td>
                     <td className="px-8 py-6">
-                      <span className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 text-xs font-bold text-white">#{appt.petId}</span>
+                      <span className="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700">#{appt.petId}</span>
                     </td>
-                    <td className="px-8 py-6 font-medium text-white">Dr. {appt.vetName}</td>
-                    <td className="px-8 py-6 text-slate-400">{appt.reason}</td>
+                    <td className="px-8 py-6 font-medium text-slate-800">Dr. {appt.vetName}</td>
+                    <td className="px-8 py-6 text-slate-600">{appt.reason}</td>
                     <td className="px-8 py-6">
                       <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase ${
-                        appt.status === 'SCHEDULED' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/20' :
-                        appt.status === 'COMPLETED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/20' :
-                        'bg-red-500/20 text-red-400 border border-red-500/20'
+                        appt.status === 'SCHEDULED' ? 'bg-purple-100 text-purple-600 border border-purple-200' :
+                        appt.status === 'COMPLETED' ? 'bg-emerald-100 text-emerald-600 border border-emerald-200' :
+                        'bg-red-100 text-red-600 border border-red-200'
                       }`}>
                         {appt.status}
                       </span>
@@ -150,22 +150,22 @@ function Appointments() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="glass-card w-full max-w-md p-8 z-10 relative bg-[#1a1a2e]"
+              className="card w-full max-w-md p-8 z-10 relative"
             >
               <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-heading font-bold text-white flex items-center gap-3">
-                  <div className="p-2 bg-teal-500/20 rounded-lg text-teal-400">
+                <h2 className="text-2xl font-heading font-bold text-slate-800 flex items-center gap-3">
+                  <div className="p-2 bg-teal-100 rounded-lg text-teal-600">
                     <Stethoscope className="w-6 h-6" />
                   </div>
                   New Appointment
                 </h2>
-                <button onClick={() => setShowModal(false)} className="p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors">
+                <button onClick={() => setShowModal(false)} className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
               
               {errorMsg && (
-                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs flex items-start gap-3">
+                <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-xs flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 shrink-0" />
                   <p>{errorMsg}</p>
                 </div>

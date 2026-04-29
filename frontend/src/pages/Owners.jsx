@@ -63,6 +63,7 @@ function Owners() {
 
   const handleDelete = async (e, id) => {
     e.stopPropagation();
+    setActiveMenu(null);
     if (window.confirm('Are you sure you want to delete this owner? This action cannot be undone.')) {
       try {
         await api.delete(`/owners/${id}`);
