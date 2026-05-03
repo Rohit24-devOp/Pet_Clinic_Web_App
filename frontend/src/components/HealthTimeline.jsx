@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 function HealthTimeline({ records }) {
   if (!records || records.length === 0) {
     return (
-      <div className="bg-white/[0.02] border border-dashed border-white/10 rounded-2xl p-10 text-center flex flex-col items-center">
-        <AlertCircle className="w-8 h-8 mb-4 text-[var(--color-text-muted)] opacity-30" />
+      <div className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-10 text-center flex flex-col items-center">
+        <AlertCircle className="w-8 h-8 mb-4 text-[var(--color-text-muted)] opacity-50" />
         <p className="text-[var(--color-text-muted)] text-sm font-medium">No medical history logged for this patient.</p>
       </div>
     );
@@ -32,34 +32,34 @@ function HealthTimeline({ records }) {
               ${record.type === 'VACCINATION' ? 'bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]' : 'bg-teal-500 shadow-[0_0_10px_rgba(20,184,166,0.5)]'}`} 
             />
             
-            <div className="bg-white/[0.03] border border-white/5 rounded-2xl p-6 group hover:bg-white/[0.06] hover:border-white/10 transition-all">
+            <div className="bg-white border border-slate-100 shadow-sm rounded-2xl p-6 group hover:border-slate-200 transition-all">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${record.type === 'VACCINATION' ? 'bg-purple-500/10 text-purple-400' : 'bg-teal-500/10 text-teal-400'}`}>
+                  <div className={`p-2 rounded-lg ${record.type === 'VACCINATION' ? 'bg-purple-50 text-purple-600' : 'bg-teal-50 text-teal-600'}`}>
                     {record.type === 'VACCINATION' ? <Syringe className="w-4 h-4" /> : <CalendarDays className="w-4 h-4" />}
                   </div>
                   <div>
-                    <h4 className="font-heading font-bold text-white tracking-tight">{record.type.replace('_', ' ')}</h4>
+                    <h4 className="font-heading font-bold text-slate-800 tracking-tight">{record.type.replace('_', ' ')}</h4>
                     <span className="text-[10px] uppercase font-bold text-[var(--color-text-muted)] tracking-widest">Medical Record</span>
                   </div>
                 </div>
-                <div className="bg-dark-900/50 px-3 py-1.5 rounded-xl border border-white/5 text-xs font-bold text-white/70">
+                <div className="bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100 text-xs font-bold text-slate-600">
                   {format(new Date(record.date), 'MMMM d, yyyy')}
                 </div>
               </div>
               
-              <p className="text-slate-300 text-sm leading-relaxed mb-6 font-body">
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-body">
                 {record.notes}
               </p>
               
               {record.nextDueDate && (
-                <div className="pt-4 border-t border-white/5 flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500">
+                <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">Next Due Date:</span>
-                    <span className="text-xs font-bold text-amber-400">{format(new Date(record.nextDueDate), 'MMMM d, yyyy')}</span>
+                    <span className="text-xs font-bold text-amber-600">{format(new Date(record.nextDueDate), 'MMMM d, yyyy')}</span>
                   </div>
                 </div>
               )}

@@ -78,7 +78,7 @@ function PetDetail() {
       transition={{ duration: 0.4 }}
       className="space-y-8 pb-20 max-w-6xl mx-auto"
     >
-      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-[var(--color-text-muted)] hover:text-white transition-colors group">
+      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-[var(--color-text-muted)] hover:text-slate-900 transition-colors group">
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Dashboard
       </button>
 
@@ -103,17 +103,17 @@ function PetDetail() {
         <div className="pt-20 px-10 pb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
           <div className="space-y-2">
             <div className="flex items-center gap-3">
-              <h1 className="text-4xl font-heading font-bold text-white">{pet.name}</h1>
-              <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/10 ${
-                healthStatus === 'HEALTHY' ? 'bg-emerald-500/20 text-emerald-400' :
-                healthStatus === 'CRITICAL' ? 'bg-red-500/20 text-red-400' :
-                'bg-amber-500/20 text-amber-400'
+              <h1 className="text-4xl font-heading font-bold text-slate-900">{pet.name}</h1>
+              <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${
+                healthStatus === 'HEALTHY' ? 'bg-emerald-50 text-emerald-600 border-emerald-200' :
+                healthStatus === 'CRITICAL' ? 'bg-red-50 text-red-600 border-red-200' :
+                'bg-amber-50 text-amber-600 border-amber-200'
               }`}>
                 {healthStatus.replace('_', ' ')}
               </span>
             </div>
-            <p className="text-[var(--color-text-muted)] flex items-center gap-4">
-              <span className="bg-white/5 px-2 py-0.5 rounded-md border border-white/5 capitalize">{pet.species.toLowerCase()}</span>
+            <p className="text-slate-600 flex items-center gap-4 font-medium">
+              <span className="bg-slate-100 px-3 py-1 rounded-md border border-slate-200 capitalize text-slate-700">{pet.species.toLowerCase()}</span>
               <span>{pet.breed}</span>
               <span>•</span>
               <span>{pet.age} Years Old</span>
@@ -140,27 +140,27 @@ function PetDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="glass-card p-6 border-l-4 border-l-[var(--color-accent)]">
-              <h3 className="text-lg font-heading font-bold text-white mb-4 flex items-center gap-2">
+            <div className="glass-card p-6 border-l-4 border-l-[var(--color-accent)] bg-white shadow-sm rounded-2xl">
+              <h3 className="text-lg font-heading font-bold text-slate-800 mb-4 flex items-center gap-2">
                 <Info className="text-[var(--color-accent)] w-5 h-5" /> Care Guide
               </h3>
-              <p className="text-slate-300 text-sm leading-relaxed bg-white/5 p-4 rounded-xl border border-white/5 italic">
+              <p className="text-slate-600 text-sm leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100 italic">
                 "{careInstructions}"
               </p>
             </div>
-            <div className="glass-card p-6 border-l-4 border-l-[var(--color-secondary)]">
-              <h3 className="text-lg font-heading font-bold text-white mb-4 flex items-center gap-2">
+            <div className="glass-card p-6 border-l-4 border-l-[var(--color-secondary)] bg-white shadow-sm rounded-2xl">
+              <h3 className="text-lg font-heading font-bold text-slate-800 mb-4 flex items-center gap-2">
                 <Clock className="text-[var(--color-secondary)] w-5 h-5" /> Feeding Plan
               </h3>
-              <p className="text-slate-300 text-sm leading-relaxed bg-white/5 p-4 rounded-xl border border-white/5 italic">
+              <p className="text-slate-600 text-sm leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100 italic">
                 "{feedingSchedule}"
               </p>
             </div>
           </div>
 
-          <div className="glass-card p-8">
-            <h3 className="text-xl font-heading font-bold text-white mb-8 flex items-center gap-3">
-              <div className="p-2 bg-indigo-500/20 rounded-lg text-indigo-400">
+          <div className="glass-card p-8 bg-white shadow-sm rounded-3xl">
+            <h3 className="text-xl font-heading font-bold text-slate-800 mb-8 flex items-center gap-3">
+              <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600">
                 <Activity className="w-5 h-5" />
               </div>
               Health Journey
@@ -170,27 +170,27 @@ function PetDetail() {
         </div>
 
         <div className="space-y-6">
-          <div className="glass-card p-8 bg-[#1a1a2e]/50 backdrop-blur-md">
-            <h3 className="text-lg font-heading font-bold text-white mb-6 border-b border-white/5 pb-4">Detailed Profile</h3>
+          <div className="glass-card p-8 bg-white shadow-sm rounded-3xl border border-slate-100">
+            <h3 className="text-lg font-heading font-bold text-slate-800 mb-6 border-b border-slate-100 pb-4">Detailed Profile</h3>
             <div className="space-y-6">
               {pet.species === 'DOG' && (
                 <>
                   <div className="flex items-start gap-4">
-                    <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+                    <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
                       <Wind className="w-4 h-4" />
                     </div>
                     <div>
                       <span className="text-[var(--color-text-muted)] text-xs uppercase tracking-widest font-bold">Walk Schedule</span>
-                      <p className="text-white font-medium mt-1">{pet.walkSchedule || 'Not specified'}</p>
+                      <p className="text-slate-800 font-medium mt-1">{pet.walkSchedule || 'Not specified'}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400">
+                    <div className="p-2 bg-amber-50 rounded-lg text-amber-600">
                       <Stethoscope className="w-4 h-4" />
                     </div>
                     <div>
                       <span className="text-[var(--color-text-muted)] text-xs uppercase tracking-widest font-bold">Training Notes</span>
-                      <p className="text-white font-medium mt-1">{pet.trainingNotes || 'No notes available'}</p>
+                      <p className="text-slate-800 font-medium mt-1">{pet.trainingNotes || 'No notes available'}</p>
                     </div>
                   </div>
                 </>
@@ -198,21 +198,21 @@ function PetDetail() {
               {pet.species === 'CAT' && (
                 <>
                   <div className="flex items-start gap-4">
-                    <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-400">
+                    <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600">
                       <Heart className="w-4 h-4" />
                     </div>
                     <div>
                       <span className="text-[var(--color-text-muted)] text-xs uppercase tracking-widest font-bold">Living Environment</span>
-                      <p className="text-white font-medium mt-1">{pet.isIndoor ? 'Indoor Explorer' : 'Outdoor Adventurer'}</p>
+                      <p className="text-slate-800 font-medium mt-1">{pet.isIndoor ? 'Indoor Explorer' : 'Outdoor Adventurer'}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="p-2 bg-pink-500/10 rounded-lg text-pink-400">
+                    <div className="p-2 bg-pink-50 rounded-lg text-pink-600">
                       <Scissors className="w-4 h-4" />
                     </div>
                     <div>
                       <span className="text-[var(--color-text-muted)] text-xs uppercase tracking-widest font-bold">Grooming Routine</span>
-                      <p className="text-white font-medium mt-1">{pet.groomingSchedule || 'Minimal grooming'}</p>
+                      <p className="text-slate-800 font-medium mt-1">{pet.groomingSchedule || 'Minimal grooming'}</p>
                     </div>
                   </div>
                 </>
@@ -220,32 +220,32 @@ function PetDetail() {
               {pet.species === 'BIRD' && (
                 <>
                   <div className="flex items-start gap-4">
-                    <div className="p-2 bg-cyan-500/10 rounded-lg text-cyan-400">
+                    <div className="p-2 bg-cyan-50 rounded-lg text-cyan-600">
                       <ShieldCheck className="w-4 h-4" />
                     </div>
                     <div>
                       <span className="text-[var(--color-text-muted)] text-xs uppercase tracking-widest font-bold">Cage Size</span>
-                      <p className="text-white font-medium mt-1">{pet.cageSize || 'Standard'}</p>
+                      <p className="text-slate-800 font-medium mt-1">{pet.cageSize || 'Standard'}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="p-2 bg-sky-500/10 rounded-lg text-sky-400">
+                    <div className="p-2 bg-sky-50 rounded-lg text-sky-600">
                       <Wind className="w-4 h-4" />
                     </div>
                     <div>
                       <span className="text-[var(--color-text-muted)] text-xs uppercase tracking-widest font-bold">Daily Flight</span>
-                      <p className="text-white font-medium mt-1">{pet.dailyFlyingMinutes ? `${pet.dailyFlyingMinutes} min out of cage` : 'Limited'}</p>
+                      <p className="text-slate-800 font-medium mt-1">{pet.dailyFlyingMinutes ? `${pet.dailyFlyingMinutes} min out of cage` : 'Limited'}</p>
                     </div>
                   </div>
                 </>
               )}
               <div className="flex items-start gap-4">
-                <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400">
+                <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
                   <Calendar className="w-4 h-4" />
                 </div>
                 <div>
                   <span className="text-[var(--color-text-muted)] text-xs uppercase tracking-widest font-bold">Last Fed</span>
-                  <p className="text-white font-medium mt-1">{pet.lastFedAt ? formatDistanceToNow(new Date(pet.lastFedAt), { addSuffix: true }) : 'Never'}</p>
+                  <p className="text-slate-800 font-medium mt-1">{pet.lastFedAt ? formatDistanceToNow(new Date(pet.lastFedAt), { addSuffix: true }) : 'Never'}</p>
                 </div>
               </div>
             </div>
